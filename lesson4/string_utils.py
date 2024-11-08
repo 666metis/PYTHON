@@ -1,43 +1,48 @@
 class StringUtils:
+    """
+    Класс с полезными утилитами для обработки и анализа строк
+    """
 
     def capitilize(self, string: str) -> str:
-        # Принимает на вход текст, делает первую букву заглавной и возвращает этот же текст 
-        # Пример: `capitilize("skypro") -> "Skypro"`
-        
+        """
+        Принимает на вход текст, делает первую букву заглавной и возвращает этот же текст
+        Пример: `capitilize("skypro") -> "Skypro"`
+        """
         return string.capitalize()
 
     def trim(self, string: str) -> str:
-        ## Принимает на вход текст и удаляет пробелы в начале, если они есть
-        # Пример: `trim("   skypro") -> "skypro"`
-        
+        """
+        Принимает на вход текст и удаляет пробелы в начале, если они есть
+        Пример: `trim("   skypro") -> "skypro"`
+        """
         whitespace = " "
         while string.startswith(whitespace):
             string = string.removeprefix(whitespace)
         return string
 
     def to_list(self, string: str, delimeter=",") -> list[str]:
-        
-       ## Принимает на вход текст с разделителем и возвращает список строк. \n
-        #Параметры: \n
-            #`string` - строка для обработки \n
-            #`delimeter` - разделитель строк. По умолчанию запятая (",") \n
-       # Пример 1: `to_list("a,b,c,d") -> ["a", "b", "c", "d"]`
-        #Пример 2: `to_list("1:2:3", ":") -> ["1", "2", "3"]`
-        
+        """
+        Принимает на вход текст с разделителем и возвращает список строк. \n
+        Параметры: \n
+            `string` - строка для обработки \n
+            `delimeter` - разделитель строк. По умолчанию запятая (",") \n
+        Пример 1: `to_list("a,b,c,d") -> ["a", "b", "c", "d"]`
+        Пример 2: `to_list("1:2:3", ":") -> ["1", "2", "3"]`
+        """
         if self.is_empty(string):
             return []
 
         return string.split(delimeter)
 
     def contains(self, string: str, symbol: str) -> bool:
-        
-        #Возвращает `True`, если строка содержит искомый символ и `False` - если нет \n
-        #Параметры: \n
-            #`string` - строка для обработки \n
-            #`symbol` - искомый символ \n
-        #Пример 1: `contains("SkyPro", "S") -> True`
-        #Пример 2: `contains("SkyPro", "U") -> False`
-        
+        """
+        Возвращает `True`, если строка содержит искомый символ и `False` - если нет \n
+        Параметры: \n
+            `string` - строка для обработки \n
+            `symbol` - искомый символ \n
+        Пример 1: `contains("SkyPro", "S") -> True`
+        Пример 2: `contains("SkyPro", "U") -> False`
+        """
         res = False
         try:
             res = string.index(symbol) > -1
