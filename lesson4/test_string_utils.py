@@ -1,5 +1,5 @@
 import pytest
-from stringutils import StringUtils
+from string_utils import StringUtils
 
 su = StringUtils()
 
@@ -16,34 +16,54 @@ def test_positive_and_negative_capitilize():
 
 def test_positive_and_negative_trim():
       #Positive
-    assert su.trim("    Skypro")== "Skypro"
-    assert su.trim("  Snegovik")== "Snegovik"
+    assert su.trim("    Skypro") == "Skypro"
+    assert su.trim("  Snegovik") == "Snegovik"
       #Negative
     assert su.trim("")== ""
 
-def to_list(self, string: str, delimeter=",") -> list[str]:
-    if self.is_empty(string):
-            return []
-    return string.split(delimeter)
+def test_to_list():
+    #Positive
+    assert su.to_list("Moscow,Surgut,Dagestan") == ["Moscow", "Surgut", "Dagestan"]
+    assert su.to_list("Moscow-Surgut-Dagestan","-") == ["Moscow", "Surgut", "Dagestan"]
+    #Negative
+    assert su.to_list("MoscowSurgutDagestan") == ["MoscowSurgutDagestan"]
+    assert su.to_list("") == []
 
-def contains(self, string: str, symbol: str) -> bool:
-        res = False
-        try:
-            res = string.index(symbol) > -1
-        except ValueError:
-            pass
-        return res
+def test_contains():
+    #Positive
+        assert su.contains("SkyPro", "S")==True
+        assert su.contains("Surgut", "S")==True
+        assert su.contains("Hi", "H")==True
+    #Negitive
+        assert su.contains("SkyPro", "H")==False
+        assert su.contains("", "")==True
 
-def delete_symbol(self, string: str, symbol: str) -> str:
-        if self.contains(string, symbol):
-            string = string.replace(symbol, "")
-        return string
+def test_delete_symbol():
+    #Positive
+    assert su.delete_symbol("Surgut", "g")=="Surut"
+    assert su.delete_symbol("666metis", "6")=="metis"
+    #Negative
+    assert su.delete_symbol("Surgut", "a")=="Surgut"
+    assert su.delete_symbol("12345", "6")=="12345"
+    assert su.delete_symbol("", "g")==""
 
-def starts_with(self, string: str, symbol: str) -> bool:
-     return string.startswith(symbol)
+def test_starts_with():
+    #Positive
+     assert su.starts_with("666metis", "6")==True
+     assert su.starts_with("Hello", "H")==True
+     assert su.starts_with("flash", "f")==True
+    #Negative
+     assert su.starts_with("666metis", "m") == False
+     assert su.starts_with("Flash", "f") == False
 
-def end_with(self, string: str, symbol: str) -> bool:
-     return string.endswith(symbol)
+def test_end_with():
+    #Positive
+     assert su.end_with("666metis", "s")==True
+     assert su.end_with("Sergut", "t")==True
+     assert su.end_with("metis666", "6")==True
+    #Negative
+     assert su.end_with("666metis", "6")==False
+     assert su.end_with("Surgut", "S")==False
 
 def test_is_empty():
     assert su.is_empty("") == True
@@ -51,13 +71,4 @@ def test_is_empty():
     assert su.is_empty("skypro")== False
     assert su.is_empty("/n")== False
 
-def list_to_string(self, lst: list, joiner=", ") -> str:
-        string = ""
-        length = len(lst)
-        if length == 0:
-            return string
-
-        for i in range(0, length - 1):
-            string += str(lst[i]) + joiner
-
-        return string + str(lst[-1])
+def list_to_string():
